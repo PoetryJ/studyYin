@@ -3,12 +3,15 @@
         {
             "name": "Target 1",
             "includePath": [
-                "d:\\Documents\\keil\\ProjectF4\\Libraries\\CMSIS",
-                "d:\\Documents\\keil\\ProjectF4\\Libraries\\Startup",
-                "d:\\Documents\\keil\\ProjectF4\\Libraries\\STM32F4xx_StdPeriph_Driver\\inc",
-                "d:\\Documents\\keil\\ProjectF4\\User\\inc",
-                "d:\\Documents\\keil\\ProjectF4\\User\\src",
-                "d:\\Documents\\keil\\ProjectF4\\Libraries\\STM32F4xx_StdPeriph_Driver\\src"
+                "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\CMSIS",
+                "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\Startup",
+                "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\STM32F4xx_StdPeriph_Driver\\inc",
+                "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\User\\inc",
+                "D:\\Keil_v5\\ARM\\Pack\\ARM\\CMSIS\\4.1.0\\CMSIS\\Include",
+                "D:\\Keil_v5\\ARM\\ARMCC\\include",
+                "D:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
+                "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\User\\src",
+                "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\STM32F4xx_StdPeriph_Driver\\src"
             ],
             "defines": [
                 "USE_STDPERIPH_DRIVER",

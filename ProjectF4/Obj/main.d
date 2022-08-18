@@ -19,3 +19,7 @@
 .\obj\main.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h
 .\obj\main.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h
 .\obj\main.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
+.\obj\main.o: .\User\inc\led.h
+.\obj\main.o: .\User\inc\sys.h
+.\obj\main.o: .\User\inc\time.h
+.\obj\main.o: .\User\inc\delay.h
