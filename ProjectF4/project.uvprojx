@@ -7,13 +7,17 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>study</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
+      <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F405RG</Device>
           <Vendor>STMicroelectronics</Vendor>
+          <PackID>Keil.STM32F4xx_DFP.1.0.5</PackID>
+          <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IRAM(0x20000000,0x20000) IRAM2(0x10000000,0x10000) IROM(0x08000000,0x100000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -82,6 +86,8 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
+            <nStopA1X>0</nStopA1X>
+            <nStopA2X>0</nStopA2X>
           </AfterMake>
           <SelectedForBatchBuild>0</SelectedForBatchBuild>
           <SVCSIdString></SVCSIdString>
@@ -120,48 +126,6 @@
             <HexOffset>0</HexOffset>
             <Oh166RecLen>16</Oh166RecLen>
           </OPTHX>
-          <Simulator>
-            <UseSimulator>0</UseSimulator>
-            <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
-            <RestoreBreakpoints>1</RestoreBreakpoints>
-            <RestoreWatchpoints>1</RestoreWatchpoints>
-            <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
-            <RestoreFunctions>1</RestoreFunctions>
-            <RestoreToolbox>1</RestoreToolbox>
-            <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
-            <RestoreSysVw>1</RestoreSysVw>
-          </Simulator>
-          <Target>
-            <UseTarget>1</UseTarget>
-            <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
-            <RestoreBreakpoints>1</RestoreBreakpoints>
-            <RestoreWatchpoints>1</RestoreWatchpoints>
-            <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
-            <RestoreFunctions>0</RestoreFunctions>
-            <RestoreToolbox>1</RestoreToolbox>
-            <RestoreTracepoints>1</RestoreTracepoints>
-            <RestoreSysVw>1</RestoreSysVw>
-            <UsePdscDebugDescription>1</UsePdscDebugDescription>
-          </Target>
-          <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>6</TargetSelection>
-          <SimDlls>
-            <CpuDll></CpuDll>
-            <CpuDllArguments></CpuDllArguments>
-            <PeripheralDll></PeripheralDll>
-            <PeripheralDllArguments></PeripheralDllArguments>
-            <InitializationFile></InitializationFile>
-          </SimDlls>
-          <TargetDlls>
-            <CpuDll></CpuDll>
-            <CpuDllArguments></CpuDllArguments>
-            <PeripheralDll></PeripheralDll>
-            <PeripheralDllArguments></PeripheralDllArguments>
-            <InitializationFile></InitializationFile>
-            <Driver>Segger\JL2CM3.dll</Driver>
-          </TargetDlls>
         </DebugOption>
         <Utilities>
           <Flash1>
@@ -226,6 +190,7 @@
             <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
+            <nSecure>0</nSecure>
             <RoSelD>3</RoSelD>
             <RwSelD>4</RwSelD>
             <CodeSel>0</CodeSel>
@@ -359,12 +324,20 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
+            <v6Lang>1</v6Lang>
+            <v6LangP>1</v6LangP>
+            <vShortEn>1</vShortEn>
+            <vShortWch>1</vShortWch>
+            <v6Lto>0</v6Lto>
+            <v6WtE>0</v6WtE>
+            <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Libraries\CMSIS;.\Libraries\Startup;.\Libraries\STM32F4xx_StdPeriph_Driver\inc;.\User\inc;D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include;D:\Keil_v5\ARM\ARMCC\include</IncludePath>
+              <IncludePath>.\Libraries\CMSIS;.\Libraries\Startup;.\Libraries\STM32F4xx_StdPeriph_Driver\inc;.\User\inc;.\uCOSII\CONFIG;.\uCOSII\CORE;.\uCOSII\PORT;D:\Keil_v5\ARM\ARMCC\include;D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -377,6 +350,7 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>0</uSurpInc>
             <useXO>0</useXO>
+            <uClangAs>0</uClangAs>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -405,68 +379,144 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>APL</GroupName>
+          <GroupName>Master</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\main.c</FilePath>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\main.cpp</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\stm32f4xx_it.c</FilePath>
+              <FileName>manage.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\manage.cpp</FilePath>
             </File>
             <File>
-              <FileName>can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\can.c</FilePath>
-            </File>
-            <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\sys.c</FilePath>
-            </File>
-            <File>
-              <FileName>time.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\time.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\src\usart.c</FilePath>
+              <FileName>visual_scope.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\visual_scope.cpp</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>FML</GroupName>
+          <GroupName>Control</GroupName>
+          <Files>
+            <File>
+              <FileName>stand.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\stand.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>vmc_leg.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\vmc_leg.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>vmc_control.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\vmc_control.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>bound.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\bound.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>bound_con.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\bound_con.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>jump.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\jump.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>RL_con.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\RL_con.cpp</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
-          <GroupName>HDL</GroupName>
+          <GroupName>Body</GroupName>
+          <Files>
+            <File>
+              <FileName>motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\motor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>leg.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\leg.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>yesense.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\src\yesense.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
-          <GroupName>HAL</GroupName>
+          <GroupName>Function</GroupName>
+          <Files>
+            <File>
+              <FileName>kalman.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\kalman.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MyDataProcess.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\src\MyDataProcess.c</FilePath>
+            </File>
+            <File>
+              <FileName>utils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\utils.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>pid.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\inc\pid.h</FilePath>
+            </File>
+            <File>
+              <FileName>queue.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\inc\queue.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Connect</GroupName>
+          <Files>
+            <File>
+              <FileName>can.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\can.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>usart.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\usart.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>dma.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\User\src\dma.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>tim.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\inc\tim.h</FilePath>
+            </File>
+            <File>
+              <FileName>analysis_data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\inc\analysis_data.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>LIB</GroupName>
@@ -502,14 +552,14 @@
               <FilePath>.\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_can.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_can.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -534,6 +584,106 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>uCOS CONFIG</GroupName>
+          <Files>
+            <File>
+              <FileName>includes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\uCOSII\CONFIG\includes.h</FilePath>
+            </File>
+            <File>
+              <FileName>os_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\uCOSII\CONFIG\os_cfg.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>uCOS PORT</GroupName>
+          <Files>
+            <File>
+              <FileName>os_cpu_c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\PORT\os_cpu_c.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_dbg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\PORT\os_dbg.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_cpu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\uCOSII\PORT\os_cpu.h</FilePath>
+            </File>
+            <File>
+              <FileName>os_cpu_a.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\uCOSII\PORT\os_cpu_a.asm</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>uCOS CORE</GroupName>
+          <Files>
+            <File>
+              <FileName>os_core.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_core.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_flag.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_flag.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_mbox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_mbox.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_mem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_mem.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_mutex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_mutex.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_q.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_q.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_sem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_sem.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_time.c</FilePath>
+            </File>
+            <File>
+              <FileName>os_tmr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uCOSII\CORE\os_tmr.c</FilePath>
+            </File>
+            <File>
+              <FileName>ucos_ii.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\uCOSII\CORE\ucos_ii.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -546,7 +696,7 @@
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.4.0" condition="ARMv6_7_8-M Device">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.7.0"/>
         <targetInfos>
-          <targetInfo name="Target 1"/>
+          <targetInfo name="study"/>
         </targetInfos>
       </component>
     </components>

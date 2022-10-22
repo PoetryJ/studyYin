@@ -4,12 +4,12 @@
 *                                          The Real-Time Kernel
 *                                             TIME MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_TIME.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -22,7 +22,7 @@
 */
 
 #ifndef  OS_MASTER_FILE
-#include "ucos_ii.h"
+#include <ucos_ii.h>
 #endif
 
 /*
@@ -261,4 +261,3 @@ void  OSTimeSet (INT32U ticks)
     OS_EXIT_CRITICAL();
 }
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

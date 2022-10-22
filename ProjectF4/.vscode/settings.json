@@ -1,0 +1,41 @@
+{
+  "C_Cpp_Runner.cCompilerPath": "C:/Program Files/mingw64/bin/gcc.exe",
+  "C_Cpp_Runner.cppCompilerPath": "g++",
+  "C_Cpp_Runner.debuggerPath": "gdb",
+  "C_Cpp_Runner.cStandard": "",
+  "C_Cpp_Runner.cppStandard": "",
+  "C_Cpp_Runner.msvcBatchPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/Build/vcvarsall.bat",
+  "C_Cpp_Runner.useMsvc": false,
+  "C_Cpp_Runner.warnings": [
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic"
+  ],
+  "C_Cpp_Runner.enableWarnings": true,
+  "C_Cpp_Runner.warningsAsError": false,
+  "C_Cpp_Runner.compilerArgs": [],
+  "C_Cpp_Runner.linkerArgs": [],
+  "C_Cpp_Runner.includePaths": [
+    "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\CMSIS",
+    "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\Startup",
+    "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\STM32F4xx_StdPeriph_Driver\\inc",
+    "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\User\\inc",
+    "D:\\Keil_v5\\ARM\\Pack\\ARM\\CMSIS\\4.1.0\\CMSIS\\Include",
+    "D:\\Keil_v5\\ARM\\ARMCC\\include",
+    "D:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
+    "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\User\\src",
+    "c:\\Users\\18527\\Desktop\\ProjectF4\\ProjectF4\\Libraries\\STM32F4xx_StdPeriph_Driver\\src"
+  ],
+  "C_Cpp_Runner.includeSearch": [
+    "*",
+    "**/*"
+  ],
+  "C_Cpp_Runner.excludeSearch": [
+    "**/build",
+    "**/build/**",
+    "**/.*",
+    "**/.*/**",
+    "**/.vscode",
+    "**/.vscode/**"
+  ]
+}

@@ -4,12 +4,12 @@
 *                                          The Real-Time Kernel
 *                                            TASK MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_TASK.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -22,7 +22,7 @@
 */
 
 #ifndef  OS_MASTER_FILE
-#include "ucos_ii.h"
+#include <ucos_ii.h>
 #endif
 
 /*$PAGE*/
@@ -194,12 +194,14 @@ INT8U  OSTaskChangePrio (INT8U  oldprio,
 *              prio     is the task's priority.  A unique priority MUST be assigned to each task and the
 *                       lower the number, the higher the priority.
 *
-* Returns    : OS_ERR_NONE             if the function was successful.
-*              OS_PRIO_EXIT            if the task priority already exist
-*                                      (each task MUST have a unique priority).
-*              OS_ERR_PRIO_INVALID     if the priority you specify is higher that the maximum allowed
-*                                      (i.e. >= OS_LOWEST_PRIO)
-*              OS_ERR_TASK_CREATE_ISR  if you tried to create a task from an ISR.
+* Returns    : OS_ERR_NONE                      if the function was successful.
+*              OS_ERR_PRIO_EXIST                if the task priority already exist
+*                                               (each task MUST have a unique priority).
+*              OS_ERR_PRIO_INVALID              if the priority you specify is higher that the maximum
+*                                               allowed (i.e. >= OS_LOWEST_PRIO)
+*              OS_ERR_TASK_CREATE_ISR           if you tried to create a task from an ISR.
+*              OS_ERR_ILLEGAL_CREATE_RUN_TIME   if you tried to create a task after safety critical
+*                                               operation started.
 *********************************************************************************************************
 */
 
@@ -209,10 +211,10 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
                      OS_STK  *ptos,
                      INT8U    prio)
 {
-    OS_STK    *psp;
-    INT8U      err;
+    OS_STK     *psp;
+    INT8U       err;
 #if OS_CRITICAL_METHOD == 3u                 /* Allocate storage for CPU status register               */
-    OS_CPU_SR  cpu_sr = 0u;
+    OS_CPU_SR   cpu_sr = 0u;
 #endif
 
 
@@ -220,6 +222,7 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (OS_ERR_ILLEGAL_CREATE_RUN_TIME);
     }
 #endif
 
@@ -316,12 +319,14 @@ INT8U  OSTaskCreate (void   (*task)(void *p_arg),
 *                        OS_TASK_OPT_SAVE_FP      If the CPU has floating-point registers, save them
 *                                                 during a context switch.
 *
-* Returns    : OS_ERR_NONE             if the function was successful.
-*              OS_PRIO_EXIT            if the task priority already exist
-*                                      (each task MUST have a unique priority).
-*              OS_ERR_PRIO_INVALID     if the priority you specify is higher that the maximum allowed
-*                                      (i.e. > OS_LOWEST_PRIO)
-*              OS_ERR_TASK_CREATE_ISR  if you tried to create a task from an ISR.
+* Returns    : OS_ERR_NONE                      if the function was successful.
+*              OS_ERR_PRIO_EXIST                if the task priority already exist
+*                                               (each task MUST have a unique priority).
+*              OS_ERR_PRIO_INVALID              if the priority you specify is higher that the maximum
+*                                               allowed (i.e. > OS_LOWEST_PRIO)
+*              OS_ERR_TASK_CREATE_ISR           if you tried to create a task from an ISR.
+*              OS_ERR_ILLEGAL_CREATE_RUN_TIME   if you tried to create a task after safety critical
+*                                               operation started.
 *********************************************************************************************************
 */
 /*$PAGE*/
@@ -336,10 +341,10 @@ INT8U  OSTaskCreateExt (void   (*task)(void *p_arg),
                         void    *pext,
                         INT16U   opt)
 {
-    OS_STK    *psp;
-    INT8U      err;
+    OS_STK     *psp;
+    INT8U       err;
 #if OS_CRITICAL_METHOD == 3u                 /* Allocate storage for CPU status register               */
-    OS_CPU_SR  cpu_sr = 0u;
+    OS_CPU_SR   cpu_sr = 0u;
 #endif
 
 
@@ -347,6 +352,7 @@ INT8U  OSTaskCreateExt (void   (*task)(void *p_arg),
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (OS_ERR_ILLEGAL_CREATE_RUN_TIME);
     }
 #endif
 
@@ -652,6 +658,7 @@ INT8U  OSTaskNameGet (INT8U    prio,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -732,6 +739,7 @@ void  OSTaskNameSet (INT8U   prio,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -914,8 +922,8 @@ INT8U  OSTaskStkChk (INT8U         prio,
         nfree++;
     }
 #endif
-    p_stk_data->OSFree = nfree * sizeof(OS_STK);          /* Compute number of free bytes on the stack */
-    p_stk_data->OSUsed = (size - nfree) * sizeof(OS_STK); /* Compute number of bytes used on the stack */
+    p_stk_data->OSFree = nfree;                       /* Store   number of free entries on the stk     */
+    p_stk_data->OSUsed = size - nfree;                /* Compute number of entries used on the stk     */
     return (OS_ERR_NONE);
 }
 #endif
@@ -1095,6 +1103,14 @@ INT32U  OSTaskRegGet (INT8U   prio,
     OS_TCB    *ptcb;
 
 
+
+#ifdef OS_SAFETY_CRITICAL
+    if (perr == (INT8U *)0) {
+        OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
+    }
+#endif
+
 #if OS_ARG_CHK_EN > 0u
     if (prio >= OS_LOWEST_PRIO) {
         if (prio != OS_PRIO_SELF) {
@@ -1160,6 +1176,13 @@ void  OSTaskRegSet (INT8U    prio,
 #endif
     OS_TCB    *ptcb;
 
+
+#ifdef OS_SAFETY_CRITICAL
+    if (perr == (INT8U *)0) {
+        OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
+    }
+#endif
 
 #if OS_ARG_CHK_EN > 0u
     if (prio >= OS_LOWEST_PRIO) {
@@ -1260,4 +1283,3 @@ void  OS_TaskStkClr (OS_STK  *pbos,
 }
 
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

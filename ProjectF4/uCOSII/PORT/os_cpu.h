@@ -87,7 +87,7 @@ void       OSCtxSw(void);
 void       OSIntCtxSw(void);
 void       OSStartHighRdy(void);
 
-void       OS_CPU_PendSVHandler(void);
+void       OS_CPU_SysTickInit(void); /* See OS_CPU_C.C	*/
 
 
 #endif

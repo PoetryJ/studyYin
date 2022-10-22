@@ -3,12 +3,12 @@
 *                                                uC/OS-II
 *                                          The Real-Time Kernel
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : uCOS_II.H
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -33,14 +33,15 @@ extern "C" {
 *********************************************************************************************************
 */
 
-#define  OS_VERSION                 291u                /* Version of uC/OS-II (Vx.yy mult. by 100)    */
+#define  OS_VERSION                 292u                /* Version of uC/OS-II (Vx.yy mult. by 100)    */
 
 /*
 *********************************************************************************************************
 *                                           INCLUDE HEADER FILES
 *********************************************************************************************************
 */
-#include "includes.h"
+
+//#include <app_cfg.h>
 #include <os_cfg.h>
 #include <os_cpu.h>
 
@@ -67,6 +68,7 @@ extern "C" {
 #define  OS_ASCII_NUL            (INT8U)0
 
 #define  OS_PRIO_SELF                0xFFu              /* Indicate SELF priority                      */
+#define  OS_PRIO_MUTEX_CEIL_DIS      0xFFu              /* Disable mutex priority ceiling promotion    */
 
 #if OS_TASK_STAT_EN > 0u
 #define  OS_N_SYS_TASKS                 2u              /* Number of system tasks                      */
@@ -317,7 +319,7 @@ extern "C" {
 #define OS_ERR_FLAG_GRP_DEPLETED      114u
 #define OS_ERR_FLAG_NAME_TOO_LONG     115u
 
-#define OS_ERR_PIP_LOWER              120u
+#define OS_ERR_PCP_LOWER              120u
 
 #define OS_ERR_TMR_INVALID_DLY        130u
 #define OS_ERR_TMR_INVALID_PERIOD     131u
@@ -465,7 +467,7 @@ typedef struct os_mutex_data {
     OS_PRIO OSEventGrp;                     /* Group corresponding to tasks waiting for event to occur */
     BOOLEAN OSValue;                        /* Mutex value (OS_FALSE = used, OS_TRUE = available)      */
     INT8U   OSOwnerPrio;                    /* Mutex owner's task priority or 0xFF if no owner         */
-    INT8U   OSMutexPIP;                     /* Priority Inheritance Priority or 0xFF if no owner       */
+    INT8U   OSMutexPCP;                     /* Priority Ceiling Priority or 0xFF if PCP disabled       */
 } OS_MUTEX_DATA;
 #endif
 
@@ -518,8 +520,8 @@ typedef struct os_sem_data {
 
 #if OS_TASK_CREATE_EXT_EN > 0u
 typedef struct os_stk_data {
-    INT32U  OSFree;                    /* Number of free bytes on the stack                            */
-    INT32U  OSUsed;                    /* Number of bytes used on the stack                            */
+    INT32U  OSFree;                    /* Number of free entries on the stack                          */
+    INT32U  OSUsed;                    /* Number of entries used on the stack                          */
 } OS_STK_DATA;
 #endif
 
@@ -1891,4 +1893,3 @@ void          OSCtxSw                 (void);
 #endif
 
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

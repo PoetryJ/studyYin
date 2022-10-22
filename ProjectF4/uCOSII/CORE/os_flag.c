@@ -4,12 +4,12 @@
 *                                          The Real-Time Kernel
 *                                         EVENT FLAG  MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_FLAG.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -22,7 +22,7 @@
 */
 
 #ifndef  OS_MASTER_FILE
-#include "ucos_ii.h"
+#include <ucos_ii.h>
 #endif
 
 #if (OS_FLAG_EN > 0u) && (OS_MAX_FLAGS > 0u)
@@ -106,6 +106,7 @@ OS_FLAGS  OSFlagAccept (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -224,12 +225,14 @@ OS_FLAG_GRP  *OSFlagCreate (OS_FLAGS  flags,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAG_GRP *)0);
     }
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAG_GRP *)0);
     }
 #endif
 
@@ -311,6 +314,7 @@ OS_FLAG_GRP  *OSFlagDel (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAG_GRP *)0);
     }
 #endif
 
@@ -423,6 +427,7 @@ INT8U  OSFlagNameGet (OS_FLAG_GRP   *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -492,6 +497,7 @@ void  OSFlagNameSet (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -597,6 +603,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -838,6 +845,7 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -963,6 +971,7 @@ OS_FLAGS  OSFlagQuery (OS_FLAG_GRP  *pgrp,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_FLAGS)0);
     }
 #endif
 
@@ -1212,4 +1221,3 @@ void  OS_FlagUnlink (OS_FLAG_NODE *pnode)
 #endif
 }
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

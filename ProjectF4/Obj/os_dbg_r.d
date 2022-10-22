@@ -1,0 +1,11 @@
+.\obj\os_dbg_r.o: uCOSII\PORT\os_dbg_r.c
+.\obj\os_dbg_r.o: .\uCOSII\CORE\ucos_ii.h
+.\obj\os_dbg_r.o: .\uCOSII\CONFIG\includes.h
+.\obj\os_dbg_r.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\obj\os_dbg_r.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\obj\os_dbg_r.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\ctype.h
+.\obj\os_dbg_r.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdlib.h
+.\obj\os_dbg_r.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdarg.h
+.\obj\os_dbg_r.o: .\uCOSII\CORE\ucos_ii.h
+.\obj\os_dbg_r.o: .\uCOSII\PORT\os_cpu.h
+.\obj\os_dbg_r.o: .\uCOSII\CONFIG\os_cfg.h

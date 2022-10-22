@@ -1,11 +1,12 @@
 .\obj\stm32f4xx_exti.o: Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c
 .\obj\stm32f4xx_exti.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_exti.h
 .\obj\stm32f4xx_exti.o: .\Libraries\CMSIS\stm32f4xx.h
-.\obj\stm32f4xx_exti.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cm4.h
-.\obj\stm32f4xx_exti.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\stm32f4xx_exti.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-.\obj\stm32f4xx_exti.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
-.\obj\stm32f4xx_exti.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cm4_simd.h
+.\obj\stm32f4xx_exti.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm4.h
+.\obj\stm32f4xx_exti.o: D:\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\stm32f4xx_exti.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h
+.\obj\stm32f4xx_exti.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h
+.\obj\stm32f4xx_exti.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h
+.\obj\stm32f4xx_exti.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\mpu_armv7.h
 .\obj\stm32f4xx_exti.o: .\Libraries\CMSIS\system_stm32f4xx.h
 .\obj\stm32f4xx_exti.o: .\User\inc\stm32f4xx_conf.h
 .\obj\stm32f4xx_exti.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h

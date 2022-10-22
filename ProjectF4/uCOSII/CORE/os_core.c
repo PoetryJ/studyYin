@@ -4,12 +4,12 @@
 *                                          The Real-Time Kernel
 *                                             CORE FUNCTIONS
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_CORE.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -23,7 +23,7 @@
 
 #ifndef  OS_MASTER_FILE
 #define  OS_GLOBALS
-#include "includes.h"
+#include <ucos_ii.h>
 #endif
 
 /*
@@ -119,6 +119,7 @@ INT8U  OSEventNameGet (OS_EVENT   *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -197,6 +198,7 @@ void  OSEventNameSet (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -328,6 +330,7 @@ INT16U  OSEventPendMulti (OS_EVENT  **pevents_pend,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -389,12 +392,12 @@ INT16U  OSEventPendMulti (OS_EVENT  **pevents_pend,
     }
 
 /*$PAGE*/
-    OS_ENTER_CRITICAL();
     events_rdy     =  OS_FALSE;
     events_rdy_nbr =  0u;
     events_stat    =  OS_STAT_RDY;
     pevents        =  pevents_pend;
     pevent         = *pevents;
+    OS_ENTER_CRITICAL();
     while (pevent != (OS_EVENT *)0) {                   /* See if any events already available         */
         switch (pevent->OSEventType) {
 #if (OS_SEM_EN > 0u)
@@ -483,15 +486,15 @@ INT16U  OSEventPendMulti (OS_EVENT  **pevents_pend,
         case OS_STAT_PEND_ABORT:
              pevent = OSTCBCur->OSTCBEventPtr;
              if (pevent != (OS_EVENT *)0) {             /* If task event ptr != NULL, ...              */
-                *pevents_rdy++ =  pevent;               /* ... return available event ...              */
-                *pevents_rdy   = (OS_EVENT *)0;         /* ... & NULL terminate return event array     */
-                  events_rdy_nbr++;
+                *pevents_rdy++   =  pevent;             /* ... return available event ...              */
+                *pevents_rdy     = (OS_EVENT *)0;       /* ... & NULL terminate return event array     */
+                  events_rdy_nbr =  1;
 
              } else {                                   /* Else NO event available, handle as timeout  */
                  OSTCBCur->OSTCBStatPend = OS_STAT_PEND_TO;
                  OS_EventTaskRemoveMulti(OSTCBCur, pevents_pend);
              }
-			 break;
+             break;
 
         case OS_STAT_PEND_TO:                           /* If events timed out, ...                    */
         default:                                        /* ... remove task from events' wait lists     */
@@ -780,10 +783,10 @@ void  OSSchedUnlock (void)
 
     if (OSRunning == OS_TRUE) {                            /* Make sure multitasking is running        */
         OS_ENTER_CRITICAL();
-        if (OSLockNesting > 0u) {                          /* Do not decrement if already 0            */
-            OSLockNesting--;                               /* Decrement lock nesting level             */
-            if (OSLockNesting == 0u) {                     /* See if scheduler is enabled and ...      */
-                if (OSIntNesting == 0u) {                  /* ... not in an ISR                        */
+        if (OSIntNesting == 0u) {                          /* Can't call from an ISR                   */
+            if (OSLockNesting > 0u) {                      /* Do not decrement if already 0            */
+                OSLockNesting--;                           /* Decrement lock nesting level             */
+                if (OSLockNesting == 0u) {                 /* See if scheduler is enabled              */
                     OS_EXIT_CRITICAL();
                     OS_Sched();                            /* See if a HPT is ready                    */
                 } else {
@@ -1719,6 +1722,12 @@ INT8U  OS_StrLen (INT8U *psrc)
     INT8U  len;
 
 
+#if OS_ARG_CHK_EN > 0u
+    if (psrc == (INT8U *)0) {
+        return (0u);
+    }
+#endif
+
     len = 0u;
     while (*psrc != OS_ASCII_NUL) {
         psrc++;
@@ -1759,7 +1768,7 @@ void  OS_TaskIdle (void *p_arg)
 
     p_arg = p_arg;                               /* Prevent compiler warning for not using 'p_arg'     */
     for (;;) {
-        OS_ENTER_CRITICAL();
+        OS_ENTER_CRITICAL();					
         OSIdleCtr++;
         OS_EXIT_CRITICAL();
         OSTaskIdleHook();                        /* Call user definable HOOK                           */
@@ -1814,6 +1823,9 @@ void  OS_TaskStat (void *p_arg)
         }
 #endif
     }
+    OS_ENTER_CRITICAL();
+    OSIdleCtr = OSIdleCtrMax * 100uL;            /* Set initial CPU usage as 0%                        */
+    OS_EXIT_CRITICAL();
     for (;;) {
         OS_ENTER_CRITICAL();
         OSIdleCtrRun = OSIdleCtr;                /* Obtain the of the idle counter for the past second */
@@ -1862,7 +1874,7 @@ void  OS_TaskStatStkChk (void)
                     #else
                     ptcb->OSTCBStkBase = ptcb->OSTCBStkBottom - ptcb->OSTCBStkSize;
                     #endif
-                    ptcb->OSTCBStkUsed = stk_data.OSUsed;            /* Store the number of bytes used */
+                    ptcb->OSTCBStkUsed = stk_data.OSUsed;            /* Store number of entries used   */
 #endif
                 }
             }
@@ -2006,10 +2018,13 @@ INT8U  OS_TCBInit (INT8U    prio,
 
         OSTCBInitHook(ptcb);
 
+        OS_ENTER_CRITICAL();
+        OSTCBPrioTbl[prio] = ptcb;
+        OS_EXIT_CRITICAL();
+
         OSTaskCreateHook(ptcb);                            /* Call user defined hook                   */
 
         OS_ENTER_CRITICAL();
-        OSTCBPrioTbl[prio] = ptcb;
         ptcb->OSTCBNext    = OSTCBList;                    /* Link into TCB chain                      */
         ptcb->OSTCBPrev    = (OS_TCB *)0;
         if (OSTCBList != (OS_TCB *)0) {
@@ -2025,4 +2040,3 @@ INT8U  OS_TCBInit (INT8U    prio,
     OS_EXIT_CRITICAL();
     return (OS_ERR_TASK_NO_MORE_TCB);
 }
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

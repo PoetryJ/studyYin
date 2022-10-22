@@ -4,12 +4,12 @@
 *                                          The Real-Time Kernel
 *                                          SEMAPHORE MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_SEM.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -22,7 +22,7 @@
 */
 
 #ifndef  OS_MASTER_FILE
-#include "ucos_ii.h"
+#include <ucos_ii.h>
 #endif
 
 #if OS_SEM_EN > 0u
@@ -103,6 +103,7 @@ OS_EVENT  *OSSemCreate (INT16U cnt)
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_EVENT *)0);
     }
 #endif
 
@@ -181,6 +182,7 @@ OS_EVENT  *OSSemDel (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_EVENT *)0);
     }
 #endif
 
@@ -299,6 +301,7 @@ void  OSSemPend (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -408,6 +411,7 @@ INT8U  OSSemPendAbort (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -597,6 +601,7 @@ void  OSSemSet (OS_EVENT  *pevent,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -626,4 +631,3 @@ void  OSSemSet (OS_EVENT  *pevent,
 #endif
 
 #endif                                                /* OS_SEM_EN                                     */
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

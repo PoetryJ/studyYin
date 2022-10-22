@@ -4,12 +4,12 @@
 *                                          The Real-Time Kernel
 *                                            MEMORY MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 * File    : OS_MEM.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -22,7 +22,7 @@
 */
 
 #ifndef  OS_MASTER_FILE
-#include "includes.h"
+#include <ucos_ii.h>
 #endif
 
 #if (OS_MEM_EN > 0u) && (OS_MAX_MEM_PART > 0u)
@@ -75,12 +75,14 @@ OS_MEM  *OSMemCreate (void   *addr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_MEM *)0);
     }
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_MEM *)0);
     }
 #endif
 
@@ -163,6 +165,7 @@ void  *OSMemGet (OS_MEM  *pmem,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((void *)0);
     }
 #endif
 
@@ -222,6 +225,7 @@ INT8U  OSMemNameGet (OS_MEM   *pmem,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -285,6 +289,7 @@ void  OSMemNameSet (OS_MEM  *pmem,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return;
     }
 #endif
 
@@ -453,4 +458,3 @@ void  OS_MemInit (void)
 #endif
 }
 #endif                                                    /* OS_MEM_EN                                 */
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

@@ -4,13 +4,13 @@
 *                                          The Real-Time Kernel
 *                                            TIMER MANAGEMENT
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
+*                              (c) Copyright 1992-2010, Micrium, Weston, FL
 *                                           All Rights Reserved
 *
 *
 * File    : OS_TMR.C
 * By      : Jean J. Labrosse
-* Version : V2.91
+* Version : V2.92
 *
 * LICENSING TERMS:
 * ---------------
@@ -22,7 +22,7 @@
 ************************************************************************************************************************
 */
 
-#include "ucos_ii.h"
+#include <ucos_ii.h>
 
 /*
 ************************************************************************************************************************
@@ -119,12 +119,14 @@ OS_TMR  *OSTmrCreate (INT32U           dly,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_TMR *)0);
     }
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
     if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return ((OS_TMR *)0);
     }
 #endif
 
@@ -167,7 +169,11 @@ OS_TMR  *OSTmrCreate (INT32U           dly,
     ptmr->OSTmrCallback    = callback;
     ptmr->OSTmrCallbackArg = callback_arg;
 #if OS_TMR_CFG_NAME_EN > 0u
-    ptmr->OSTmrName        = pname;
+    if (pname == (INT8U *)0) {                              /* Is 'pname' a NULL pointer?                             */
+        ptmr->OSTmrName    = (INT8U *)(void *)"?";
+    } else {
+        ptmr->OSTmrName    = pname;
+    }
 #endif
     OSSchedUnlock();
     *perr = OS_ERR_NONE;
@@ -204,6 +210,7 @@ BOOLEAN  OSTmrDel (OS_TMR  *ptmr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (OS_FALSE);
     }
 #endif
 
@@ -285,6 +292,7 @@ INT8U  OSTmrNameGet (OS_TMR   *ptmr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -363,6 +371,7 @@ INT32U  OSTmrRemainGet (OS_TMR  *ptmr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -436,8 +445,8 @@ INT32U  OSTmrRemainGet (OS_TMR  *ptmr,
 *
 *                  OS_TMR_STATE_UNUSED     the timer has not been created
 *                  OS_TMR_STATE_STOPPED    the timer has been created but has not been started or has been stopped
-*                  OS_TMR_COMPLETED        the timer is in ONE-SHOT mode and has completed it's timeout
-*                  OS_TMR_RUNNING          the timer is currently running
+*                  OS_TMR_STATE_COMPLETED  the timer is in ONE-SHOT mode and has completed it's timeout
+*                  OS_TMR_STATE_RUNNING    the timer is currently running
 *
 * Arguments  : ptmr          Is a pointer to the desired timer
 *
@@ -463,6 +472,7 @@ INT8U  OSTmrStateGet (OS_TMR  *ptmr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (0u);
     }
 #endif
 
@@ -528,6 +538,7 @@ BOOLEAN  OSTmrStart (OS_TMR   *ptmr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (OS_FALSE);
     }
 #endif
 
@@ -623,6 +634,7 @@ BOOLEAN  OSTmrStop (OS_TMR  *ptmr,
 #ifdef OS_SAFETY_CRITICAL
     if (perr == (INT8U *)0) {
         OS_SAFETY_CRITICAL_EXCEPTION();
+        return (OS_FALSE);
     }
 #endif
 
@@ -1070,4 +1082,3 @@ static  void  OSTmr_Task (void *p_arg)
     }
 }
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  

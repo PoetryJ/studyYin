@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "D:/Keil_v5/ARM/Pack/ARM/CMSIS/4.1.0/CMSIS/Include"
+                "D:/Keil_v5/ARM/Pack/ARM/CMSIS/5.7.0/CMSIS/Include"
             ],
             "defines": [
                 "_DEBUG",

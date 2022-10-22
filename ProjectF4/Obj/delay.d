@@ -1,11 +1,12 @@
 .\obj\delay.o: User\src\delay.c
 .\obj\delay.o: .\User\inc\delay.h
 .\obj\delay.o: .\Libraries\CMSIS\stm32f4xx.h
-.\obj\delay.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cm4.h
-.\obj\delay.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\delay.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-.\obj\delay.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
-.\obj\delay.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cm4_simd.h
+.\obj\delay.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm4.h
+.\obj\delay.o: D:\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\delay.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h
+.\obj\delay.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h
+.\obj\delay.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h
+.\obj\delay.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\mpu_armv7.h
 .\obj\delay.o: .\Libraries\CMSIS\system_stm32f4xx.h
 .\obj\delay.o: .\User\inc\stm32f4xx_conf.h
 .\obj\delay.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h

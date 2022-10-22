@@ -855,11 +855,13 @@ ARM Macro Assembler    Page 14
   432 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
-\startup_stm32f4xx.d -o.\obj\startup_stm32f4xx.o -IC:\Users\18527\Desktop\Proje
-ctF4\ProjectF4\RTE -ID:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include -ID:\Kei
-l_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.5\Device\Include --predefine="__MICROLIB S
-ETA 1" --list=.\obj\startup_stm32f4xx.lst Libraries\Startup\startup_stm32f4xx.s
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\obj\startup_stm32f4xx.d -o.\obj\startup_stm32f4xx.o -I.\RTE\_
+Target_1 -ID:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include -ID:\keil_v5\
+ARM\PACK\Keil\STM32F4xx_DFP\1.0.5\Device\Include --predefine="__MICROLIB SETA 1
+" --predefine="__UVISION_VERSION SETA 525" --predefine="_RTE_ SETA 1" --predefi
+ne="STM32F40XX SETA 1" --list=.\obj\startup_stm32f4xx.lst Libraries\Startup\sta
+rtup_stm32f4xx.s
 
 
 
@@ -1953,4 +1955,4 @@ Symbol: __main
       At line 184 in file Libraries\Startup\startup_stm32f4xx.s
 Comment: __main used once
 2 symbols
-443 symbols in table
+446 symbols in table

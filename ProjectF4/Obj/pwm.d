@@ -2,11 +2,12 @@
 .\obj\pwm.o: .\User\inc\pwm.h
 .\obj\pwm.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h
 .\obj\pwm.o: .\Libraries\CMSIS\stm32f4xx.h
-.\obj\pwm.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cm4.h
-.\obj\pwm.o: D:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\pwm.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmInstr.h
-.\obj\pwm.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cmFunc.h
-.\obj\pwm.o: D:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include\core_cm4_simd.h
+.\obj\pwm.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm4.h
+.\obj\pwm.o: D:\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\pwm.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h
+.\obj\pwm.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h
+.\obj\pwm.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h
+.\obj\pwm.o: D:\keil_v5\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include\mpu_armv7.h
 .\obj\pwm.o: .\Libraries\CMSIS\system_stm32f4xx.h
 .\obj\pwm.o: .\User\inc\stm32f4xx_conf.h
 .\obj\pwm.o: .\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
